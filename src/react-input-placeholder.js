@@ -82,7 +82,7 @@ var createShimmedElement = function(React, elementConstructor, name) {
     },
 
     render: function() {
-      var element = this.transferPropsTo(elementConstructor());
+      var element = elementConstructor(this.props);
       if (this.needsPlaceholding) {
         // override valueLink and event handlers
         element.props.onFocus = this.onFocus;
