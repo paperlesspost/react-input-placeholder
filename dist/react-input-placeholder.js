@@ -8,6 +8,7 @@ var isPlaceholderSupported = (typeof document !== 'undefined') && 'placeholder' 
 var createShimmedElement = function(React, elementConstructor, name) {
     return React.createClass({
         displayName: name,
+        _refs: {},
 
         componentWillMount: function() {
             this.needsPlaceholding = this.props.placeholder && !isPlaceholderSupported;
@@ -101,7 +102,7 @@ var createShimmedElement = function(React, elementConstructor, name) {
         },
 
         componentDidUpdate: function() {
-            this.setSelectionIfNeeded(this.getDOMNode());
+            this.setSelectionIfNeeded(this._refs.element);
         },
 
         render: function() {
@@ -136,6 +137,7 @@ var createShimmedElement = function(React, elementConstructor, name) {
                 element.props.value = value;
             }
 
+            this._refs.element = element;
             return element;
         }
     });
